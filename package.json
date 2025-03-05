@@ -11,10 +11,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "body": "^5.1.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
-    "mongoose": "^8.11.0"
+    "mongoose": "^6.13.8",
+    "parser": "^0.1.4"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

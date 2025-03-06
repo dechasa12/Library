@@ -7,6 +7,7 @@ const expressLayout = require('express-ejs-layouts');
 const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/authors');
 const bodyParser = require('body-parser'); 
+const bookRouter= require('./routes/books');
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, });
@@ -21,6 +22,7 @@ app.use(expressLayout);
 app.use(express.static('public'));
 app.use("/",indexRouter);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
+app.use('/books',bookRouter);
 
 app.use("/authors",authorRouter);
 

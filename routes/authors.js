@@ -3,19 +3,22 @@ const router = express.Router();
 const Author = require('../models/author');
 //All authors route
 router.get('/', async (req, res) => {
-    let searchOptions = {};
-    if(req.query.name != null && req.query.name !== ''){
-        searchOptions.name = new RegExp(req.query.name, 'i');
-    }else{
-        searchOptions = {};
+    let searchOptions = { name: "" }; // ✅ Ensure searchOptions always has a default value
+
+    if (req.query.name != null && req.query.name !== '') {
+        searchOptions.name = req.query.name; // Store input text
     }
-    try{
-       const authors =await Author.find((searchOptions));
-       res.render("authors/index", {authors: authors,searchOptions:req.query});
-    }catch{
+
+    try {
+        const authors = await Author.find({
+            name: new RegExp(req.query.name || "", 'i') // Case-insensitive search
+        });
+
+        res.render("authors/index", { authors: authors, searchOptions: searchOptions }); // ✅ Pass searchOptions
+    } catch (error) {
+        console.error(error);
         res.redirect('/');
     }
-    res.render("authors/index");
 });
 //New Author routes
 router.get('/new', (req, res) => {

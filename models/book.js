@@ -12,13 +12,11 @@ const bookSchema = new mongoose.Schema({
     coverImageName: { type: String, required: true }, // Store only the filename
     author: { type: mongoose.Schema.Types.ObjectId, ref: "Author", required: true },
 });
-
-// ✅ Virtual property to get full image path dynamically
 bookSchema.virtual("coverImagePath").get(function () {
     if (this.coverImageName) {
         return path.join("/", coverImageBasePath, this.coverImageName);
     }
 });
 
-module.exports = mongoose.model("Book", bookSchema); // ✅ Corrected comment
-module.exports.coverImageBasePath = coverImageBasePath; // ✅ Export coverImageBasePath
+module.exports = mongoose.model("Book", bookSchema); 
+module.exports.coverImageBasePath = coverImageBasePath; 

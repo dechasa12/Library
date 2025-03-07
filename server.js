@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/authors');
 const bodyParser = require('body-parser'); 
 const bookRouter= require('./routes/books');
+const methodOverride = require('method-override');
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, });
@@ -23,7 +24,7 @@ app.use(express.static('public'));
 app.use("/",indexRouter);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
 app.use('/books',bookRouter);
-
+app.use(methodOverride('_method'));
 app.use("/authors",authorRouter);
 
 app.listen(process.env.PORT || 3000);

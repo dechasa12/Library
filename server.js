@@ -21,6 +21,12 @@ app.set('views', __dirname+'/views');
 app.set('layout', 'layouts/layout');
 app.use(expressLayout);
 app.use(express.static('public'));
+
+// Add error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('error', { error: 'Something broke!' });
+});
 app.use("/",indexRouter);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
 app.use('/books',bookRouter);
